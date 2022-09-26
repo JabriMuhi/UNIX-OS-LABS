@@ -1,0 +1,42 @@
+#!/bin/bash
+
+last_bu=$(ls ~ | grep -E "^Backup-" | sort -n | tail -1 | sed "s/Backup-//")
+lastd="$HOME/Backup-${last_bu}"
+nowd=$(date +"%Y-%m-%d")
+nowTimestamp=$(date -d "$nowd" +"%s")
+lastBackupTimestamp=$(date -d "$last_bu" +"%s")
+d_time=$(echo "(${nowTimestamp} - ${lastBackupTimestamp}) / 86400" | bc)
+
+setting=~/.backup-report
+
+if [[ $d_time -gt 7 ]] || [[ -z "$last_bu" ]]
+then
+	mkdir "$HOME/Backup-${nowd}"
+	for file in $(ls ~/source)
+	 do
+		cp "$HOME/source/$file" "$HOME/Backup-$nowd"
+	done
+	flist=$(ls ~/source | sed "s/^/\t/")
+	echo -e "(${nowd}) will be created:\n${flist}" >> $setting
+else
+	setting=""
+	for file in $(ls ~/source); do
+		if [[ -f "$lastd/$file" ]]; then
+			src_size=$(wc -c "$HOME/source/${file}" | awk '{print $1}')
+			bak_size=$(wc -c "${lastd}/${file}" | awk '{print $1}')
+			d_size=$(echo "${src_size} - ${bak_size}" | bc)
+
+			if [[ $d_size -ne 0 ]]
+			 then
+				mv "$lastBackup/$file" "$lastd/$file.$nowd"
+				cp "$HOME/source/$file" $lastd
+				changes="${setting}\n\tFile $file will be updated. Old file: $file.$nowd."; fi
+		else
+			cp "$HOME/source/$file" $lastBackup
+			setting="${setting}\n\tFile $obj will be copied."; fi
+	done
+	setting=$(echo $setting | sed 's/^\\n//')
+	if [[ ! -z "$setting" ]]
+	 then
+		echo -e "(${last_bu}) will be updated:\n${setting}" >> $setting; fi
+fi

@@ -1,0 +1,13 @@
+#!/bin/bash
+
+lastd=$(find "$HOME" -regex "^/home/user/BACKUP-[0-9]+-[0-9]+-[0-9]+$" -type d | tail -n 1)
+if [ ! -z  "$lastd" ]
+then
+    for f in $(ls "$HOME/$lastd"/* | grep -vP ".[0-9]{4}.[0-9]{2}.[0-9]{2}")
+    do
+        if [[ ! -d "$HOME/restore" ]]
+        then
+            mkdir "$HOME/restore"; fi
+        cp -a "$file" "$HOME/restore/"
+    done
+fi

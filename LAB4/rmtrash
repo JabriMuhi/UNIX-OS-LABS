@@ -1,0 +1,38 @@
+#!/bin/bash
+
+file=$1
+tdir=~/.trash
+tlog=~/.trash.log
+
+#count=$2
+if [[ ! -e "$file" ]];
+	then
+	echo "Error: the file doesn't exist"
+	exit 1
+fi
+
+if [[ $# -ne 1 ]];
+	then
+	echo "Error: wrong number of arguments"
+	exit 2
+fi
+
+if [[ ! -e $tdir ]];
+	then
+	mkdir $tdir
+	touch $tlog
+fi
+
+if [[ "$(ls -A "$tdir")" ]];
+then
+	count=$(ls -A "$tdir" | wc -l)
+	let count="count"+1
+else 
+	count=1
+
+fi
+
+ln "$file" "$tdir/$count"
+rm "$file"
+
+printf "%s %s\n" "$PWD/$file" "$count" >> $tlog

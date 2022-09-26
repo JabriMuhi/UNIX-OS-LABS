@@ -1,0 +1,44 @@
+#!/bin/bash
+
+tdir="~/.trash"
+tlog="~/.trash.log"
+f_dir=$(dirname "$1")
+f_name=$(basename "$1")
+#file=$1
+#home=/home/user
+if [[ $# -ne 1 ]]
+	then
+	echo "Error: wrong number of arguments"
+	exit 1
+fi
+while IFS= read -r string
+do
+	IFS=" " read -ra myarray <<< "$string"
+	arr_path="${myarray[0]}"
+	arr_file="${array_path##*/}"
+	if [[ "$file" -eq "$arr_file" ]]
+		then read -e -p "Untrash $arr_path? Select Yes/No " key < /dev/tty
+			if [[ "$key" -eq "Yes" ]]; then 
+			if [[ -d $(dirname "${arr_path}") ]]; then 
+			res_path=$(dirname "${arr_path}")
+			elif [[! -d $(dirname "${arr_path}") ]]
+			 then 
+			res_path="$HOME"
+			echo "This directory no longer exist. File will be resored to your home directory"
+			fi
+	while [[ -f "$res_path/$arr_file" ]]
+	 do 
+		echo "File with same name alreadyu in the directory. Change the name"
+		read arr_name < /dev/tty
+		#read arr_file < /dev/tty
+	done
+	#ln "$tdir/$arr_file" "$res_path/$arr_name"
+	ln "$HOME/.trash/${myarray[1]" "$res_path/$arr_name"
+	#ln "$tdir/${myarray[1]}" "$res_path/$arr_file"
+	rm "$tdir/${myarray[1]}"
+	#rm "$tdir/$arr_file"
+	echo "SUCCESS"
+	break;
+	fi
+	fi
+done
