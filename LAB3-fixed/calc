@@ -1,0 +1,8 @@
+#!/bin/bash
+
+mkfifo pipe
+./calc_proc&
+./calc_gen
+#./calc_proc&
+
+rm pipe

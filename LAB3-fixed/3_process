@@ -1,0 +1,10 @@
+#!/bin/bash
+
+./3_process_1&pid1=$!
+./3_process_1&pid2=$!
+./3_process_1&pid3=$!
+renice -n 19 -p $pid1
+
+at now +1 minutes <<< "kill ${pid3}"
+at now +2 minutes <<< "kill ${pid2}"
+at now +2 minutes <<< "kill ${pid1}"

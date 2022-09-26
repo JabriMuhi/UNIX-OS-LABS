@@ -1,0 +1,6 @@
+#!/bin/bash
+
+at now +2 minutes -f ./ping_test;
+#tail -n0 -f $HOME/repost && exit 
+tail -n0 -f $HOME/report
+

@@ -1,0 +1,4 @@
+SHELL=/bin/sh
+MAILTO=paul
+*/5 * * * 1 ~/LAB3/ping_test
+

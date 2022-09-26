@@ -1,0 +1,4 @@
+#!/bin/bash
+
+./command_calc_proc&pid=$!
+./command_calc_gen $pid

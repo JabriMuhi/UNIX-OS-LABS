@@ -1,0 +1,39 @@
+#!/bin/bash
+
+A=1
+MODE="+"
+k_sigterm()
+{
+	MODE="TERM"
+}
+plus()
+{
+	MODE="+"
+}
+mult()
+{
+	MODE="*"
+}
+
+trap 'plus' USR1
+trap 'mult' USR2
+trap 'k_sigterm' TERM
+
+while true; do
+case $MODE in
+	"+")
+	A=$A+2
+	echo "$A"
+	;;
+	"*")
+	A=$A*2
+	echo "$A"
+	;;
+	"TERM")
+	echo "EXIT"
+	exit
+	;;
+esac
+sleep 1
+done
+	

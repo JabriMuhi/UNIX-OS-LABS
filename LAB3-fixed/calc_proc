@@ -1,0 +1,43 @@
+#!/bin/bash
+
+A=1
+MODE="+"
+
+(tail -f pipe) |
+while true; do
+read LINE
+case $LINE in
+	"+")
+	MODE="$LINE"
+	echo "summ"
+	;;
+	"*")
+	MODE="$LINE"
+	echo "exp"
+	;;
+	[0-9]*)
+		case $MODE in
+		"+")
+		A=$(echo "${A} + ${LINE}" | bc)
+		echo $A
+		;;
+		"*")
+		A=$(echo "${A} * ${LINE}" | bc)
+		echo $A
+		;;
+		esac
+	;;
+	"QUIT")
+	echo "quit"
+	killall tail
+	exit 0
+	#rm pipe
+	;;
+	*)
+	echo "Bad operation"
+	killall tail
+	exit 1
+	#rm pipe
+	;;
+esac
+done
