@@ -1,0 +1,18 @@
+#!/bin/bash
+max=$1
+
+if [ -z "$3" ]
+then echo invalid input
+exit 
+fi
+
+if [[ "$2" -ge "$max" ]]
+then max=$2
+fi 
+
+if [[ "$3" -ge "$max" ]]
+then max=$3
+fi
+echo "$max"
+
+

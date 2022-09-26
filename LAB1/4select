@@ -1,0 +1,18 @@
+#!/bin/bash
+echo "select an action"
+echo "1 - nano"
+echo "2 - vi"
+echo "3 - links"
+echo "4 - exit"
+read a
+case $a in
+1 )
+/usr/bin/nano;;
+2 )
+/usr/bin/vi;;
+3)
+/usr/bin/links;;
+4)
+echo "bb"
+exit 0;;
+esac
