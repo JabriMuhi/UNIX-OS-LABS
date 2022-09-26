@@ -1,0 +1,13 @@
+#!/bin/bash
+
+#8850000
+#10300000
+n=6865000
+
+echo "$n"
+
+for(( i = 0; i < 30; ++i ))
+do
+	./newmem "$n" &
+	sleep 1
+done 

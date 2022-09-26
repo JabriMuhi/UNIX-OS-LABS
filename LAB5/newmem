@@ -1,0 +1,11 @@
+#!/bin/bash
+
+arr=()
+
+while true
+do
+	arr+=(1 2 3 4 5)
+	if [[ "${#arr[@]}" -ge "$1" ]]; then
+		break
+	fi
+done

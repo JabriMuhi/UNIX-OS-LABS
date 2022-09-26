@@ -1,0 +1,4 @@
+#!/bin/bash
+
+$HOME/LAB5/mem &
+$HOME/LAB5/mem2 &

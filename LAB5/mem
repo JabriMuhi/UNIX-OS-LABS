@@ -1,0 +1,21 @@
+#!/bin/bash
+
+count=0
+arr=()
+
+echo " " > $HOME/LAB5/report.log
+
+newFile="$HOME/LAB5/report.log"
+
+while true
+do
+	arr+=(1 2 3 4 5)
+	count=$(($count+1))
+	if [[ $count == 100000 ]]
+	then
+		count=0
+		echo ${#arr[@]} >> $newFile
+	fi
+
+done
+
